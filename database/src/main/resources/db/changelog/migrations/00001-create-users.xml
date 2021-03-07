@@ -1,0 +1,27 @@
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+  <changeSet id="202102231132" author="nikshepav">
+    <createTable tableName="users">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" primaryKeyName="users_pkey"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+      <column name="created_by" type="VARCHAR(255)"/>
+      <column name="last_modified_by" type="VARCHAR(255)"/>
+      <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+      <column name="version" type="BIGINT"/>
+
+      <column name="reference_id" type="UUID"/>
+      <column name="phone_number" type="VARCHAR(20)"/>
+      <column name="roles" type="jsonb"/>
+    </createTable>
+
+    <addUniqueConstraint tableName="users" columnNames="phone_number"
+      constraintName="unique_phone_numbers_for_users"/>
+    <createIndex tableName="users" indexName="users_reference_id_idx">
+      <column name="reference_id"/>
+    </createIndex>
+  </changeSet>
+</databaseChangeLog>
