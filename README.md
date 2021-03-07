@@ -16,3 +16,4 @@ docker rm -f postgres_collection ; docker run --rm -d --name postgres_collection
 ```
 -Dspring.profiles.active=local
 ```
+* A user of role manager with phone number `5555512345` will be seeded via `DevelopmentDataLoader`

@@ -30,6 +30,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.GET, "/ping").permitAll()
             .antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+            .antMatchers(HttpMethod.GET, "/users/**/access-token").permitAll()
             .anyRequest().authenticated()
             .and()
             .apply(jwtFilterConfigurer);

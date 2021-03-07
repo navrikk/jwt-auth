@@ -1,5 +1,6 @@
 package com.nikshepav.jwtauth.user;
 
+import com.nikshepav.jwtauth.security.JwtHandler;
 import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,24 @@ public class DefaultUserService implements UserService {
     @Autowired
     private final UserRepository repository;
 
+    @Autowired
+    private final JwtHandler jwtHandler;
+
     @Override
     public User create(String phoneNumber, Set<String> roles) {
         if (findByPhoneNumber(phoneNumber) != null) {
             return null;
         }
         return repository.save(new User(phoneNumber, roles));
+    }
+
+    @Override
+    public String getToken(String phoneNumber) {
+        final User user = findByPhoneNumber(phoneNumber);
+        if (user == null) {
+            return null;
+        }
+        return jwtHandler.generate(user.getPhoneNumber(), user.getRoles());
     }
 
     @Override

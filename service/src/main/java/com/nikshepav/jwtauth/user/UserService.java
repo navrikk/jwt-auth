@@ -7,6 +7,8 @@ public interface UserService {
 
     User create(String phoneNumber, Set<String> roles);
 
+    String getToken(String phoneNumber);
+
     User findById(Long id);
 
     User findByReferenceId(UUID referenceId);
